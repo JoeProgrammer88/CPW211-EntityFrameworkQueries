@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace CPW211_EntityFrameworkQueries
 {
     public partial class Form1 : Form
@@ -34,5 +36,35 @@ namespace CPW211_EntityFrameworkQueries
                                         select v).ToList();
                 
         }
+
+        private void btnSelectSpecificColumns_Click(object sender, EventArgs e)
+        {
+            APContext dbContext = new();
+            // Anonymous type
+            List<VendorLocation> results = (from v in dbContext.Vendors
+                           select new VendorLocation
+                           {
+                               VendorName = v.VendorName,
+                               VendorState = v.VendorState,
+                               VendorCity = v.VendorCity
+                           }).ToList();
+
+            StringBuilder displayString = new();
+            foreach(VendorLocation vendor in results)
+            {
+                displayString.AppendLine($"{vendor.VendorName} is in {vendor.VendorCity}");
+            }
+
+            MessageBox.Show(displayString.ToString());
+        }
+    }
+
+    class VendorLocation
+    {
+        public string VendorName { get; set; }
+
+        public string VendorState { get; set; }
+
+        public string VendorCity { get; set; }
     }
 }
