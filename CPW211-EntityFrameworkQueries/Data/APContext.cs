@@ -33,7 +33,7 @@ namespace CPW211_EntityFrameworkQueries
                 optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=AP");
             }
 
-            optionsBuilder.LogTo(message => Debug.WriteLine(message), new[] {DbLoggerCategory.Database.Command.Name});
+            optionsBuilder.LogTo(message => Debug.WriteLine(message), new[] {DbLoggerCategory.Query.Name});
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
