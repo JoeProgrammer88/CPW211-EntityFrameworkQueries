@@ -18,5 +18,21 @@ namespace CPW211_EntityFrameworkQueries
             List<Vendor> vendorList2 = (from v in dbContext.Vendors
                                         select v).ToList();
         }
+
+        private void btnAllCaliVendors_Click(object sender, EventArgs e)
+        {
+            using APContext dbContext = new();
+
+            List<Vendor> vendorList = dbContext.Vendors
+                                        .Where(v => v.VendorState == "CA")
+                                        .OrderBy(v => v.VendorName)
+                                        .ToList();
+
+            List<Vendor> vendorList2 = (from v in dbContext.Vendors
+                                        where v.VendorState == "CA"
+                                        orderby v.VendorName
+                                        select v).ToList();
+                
+        }
     }
 }
